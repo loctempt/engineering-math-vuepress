@@ -1,7 +1,6 @@
 ---
 dir:
     text: 2025AU
-breadcrumb: 2025AU
 ---
 # 2025秋季教学计划
 
