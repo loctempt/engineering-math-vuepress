@@ -12,6 +12,8 @@
   },
   "devDependencies": {
     "@vuepress/bundler-vite": "2.0.0-rc.26",
+    "@vuepress/plugin-comment": "2.0.0-rc.20",
+    "@vuepress/plugin-theme-data": "2.0.0-rc.114",
     "katex": "^0.16.25",
     "mathjax-full": "^3.2.2",
     "sass-embedded": "^1.93.2",

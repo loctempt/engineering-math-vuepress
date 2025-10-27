@@ -77,9 +77,10 @@ export default hopeTheme({
     // uncomment these if you need TeX support
     math: {
       // install katex before enabling it
-      // type: "katex",
+      type: "katex",
+      copy: true,
       // or install mathjax-full before enabling it
-      type: "mathjax",
+      // type: "mathjax",
     },
 
     // install chart.js before enabling it
