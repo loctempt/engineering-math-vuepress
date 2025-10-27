@@ -11,6 +11,9 @@ importers:
       '@vuepress/bundler-vite':
         specifier: 2.0.0-rc.26
         version: 2.0.0-rc.26(@types/node@24.9.1)(sass-embedded@1.93.2)(sass@1.93.2)
+      '@vuepress/core':
+        specifier: 2.0.0-rc.26
+        version: 2.0.0-rc.26
       '@vuepress/plugin-comment':
         specifier: 2.0.0-rc.20
         version: 2.0.0-rc.20(vuepress@2.0.0-rc.26(@vuepress/bundler-vite@2.0.0-rc.26(@types/node@24.9.1)(sass-embedded@1.93.2)(sass@1.93.2))(vue@3.5.22))
@@ -20,6 +23,9 @@ importers:
       katex:
         specifier: ^0.16.25
         version: 0.16.25
+      markdown-it:
+        specifier: ^14.1.0
+        version: 14.1.0
       mathjax-full:
         specifier: ^3.2.2
         version: 3.2.2

@@ -1,15 +1,20 @@
 import { defineUserConfig } from "vuepress";
+import paragraphCommentPlugin from './plugins/paragraph-comment.ts'
+import testPlugin from "./plugins/test-plugin.ts";
 
 import theme from "./theme.js";
-import client from "./client.js"
 
 export default defineUserConfig({
   base: "/",
 
   lang: "zh-CN",
-  title: "Docs Demo",
-  description: "A docs demo for vuepress-theme-hope",
+  title: "高等工程数学文档",
+  description: "学好高工拿好分数",
 
+  plugins: [
+    paragraphCommentPlugin({ tags: ['p', 'ul', 'ol', 'h1', 'h2'] })
+    // testPlugin({ 'msg': 'hehe, haha' }),
+  ],
   theme,
   // Enable it with pwa
   // shouldPrefetch: false,

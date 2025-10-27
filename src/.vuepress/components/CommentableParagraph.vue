@@ -1,8 +1,8 @@
 <template>
     <!-- 使用 div 模拟 p 的样式 -->
-    <div class="commentable-paragraph-wrapper" :class="{ 'paragraph-wrapper': true }">
+    <div class="commentable-paragraph-wrapper" :class="{ 'paragraph-wrapper': true }" :id="id">
         <slot />
-        <button @click="showComment = !showComment" class="comment-toggle-btn">
+        <button @click="showComment = !showComment" :class="'comment-toggle-btn-' + String(showComment)">
             <VPIcon :icon="showComment ? 'fa6-solid:comment-slash' : 'fa6-solid:comment'" />
         </button>
         <div v-show="showComment" class="comment-container">
@@ -15,6 +15,10 @@
 import { ref, onMounted } from 'vue'
 import ParagraphComment from './ParagraphComment.vue'
 
+const props = defineProps({
+    id: String, // 由 Markdown 插件传入，如 "p-0", "p-1"
+})
+const computedId = props.id || 'unknown-paragraph';
 const showComment = ref(false)
 const paragraphRef = ref(null)
 const paragraphId = ref('')
@@ -31,10 +35,23 @@ onMounted(() => {
 <style>
 .commentable-paragraph-wrapper {
     position: relative;
-    padding-bottom: 1.5rem;
+    /* padding-bottom: 1.5rem; */
 }
 
-.comment-toggle-btn {
+.comment-toggle-btn-true {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    padding: 0.2em;
+    color: #0756ab;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+
+.comment-toggle-btn-false {
     position: absolute;
     top: 0;
     right: 0;
@@ -48,13 +65,13 @@ onMounted(() => {
     cursor: pointer;
 }
 
-.commentable-paragraph-wrapper:hover .comment-toggle-btn {
+.commentable-paragraph-wrapper:hover .comment-toggle-btn-false {
     opacity: 1;
 }
 
 .comment-container {
     margin-top: 0.8rem;
     padding-top: 0.8em;
-    border-top: 1px solid var(--vp-c-divider);
+    border-top: 1px dotted var(--vp-c-divider);
 }
 </style>

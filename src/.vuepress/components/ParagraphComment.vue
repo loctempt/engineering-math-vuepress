@@ -1,6 +1,7 @@
 <template>
     <div class="paragraph-comment">
         <ClientOnly>
+            <img src="/maodie.avif"></img>
             <Giscus :repo="repo" :repo-id="repoId" :category="category" :category-id="categoryId" :mapping="'specific'"
                 :term="pageId" :strict="1" :reactions-enabled="1" :emit-metadata="0" :input-position="'top'"
                 :theme="theme" :lang="lang" :loading="lazy" />
@@ -26,7 +27,7 @@ const props = defineProps({
     pageId: String, // 段落唯一 ID
 })
 
-console.log("themeLocale", themeLocale);
+// console.log("themeLocale", themeLocale);
 // const repo = themeLocale.value.plugins.comment?.repo
 // const repoId = themeLocale.value.plugins.comment?.repoId
 // const category = themeLocale.value.plugins.comment?.category

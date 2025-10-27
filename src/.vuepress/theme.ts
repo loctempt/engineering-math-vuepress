@@ -23,7 +23,7 @@ export default hopeTheme({
   // sidebar
   sidebar,
 
-  footer: "Default footer",
+  footer: "高等工程数学文档",
 
   displayFooter: true,
 

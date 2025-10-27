@@ -310,11 +310,15 @@ highlights:
         details: Make your site more like an APP
         link: https://theme-hope.vuejs.press/guide/advanced/pwa.html
 
-copyright: 高等工程数学
-footer: Theme by <a href="https://theme-hope.vuejs.press/" target="_blank">VuePress Theme Hope</a> | MIT Licensed, Copyright © 2019-present Mr.Hope
+# copyright: 高等工程数学
+# footer: Theme by <a href="https://theme-hope.vuejs.press/" target="_blank">VuePress Theme Hope</a> | MIT Licensed, Copyright © 2019-present Mr.Hope
 --- 
 
 > Teach Less, Learn More. See through connections.
+
+:::tip
+当前学期为2025秋季学期，请进入 [2025AU](./textbook/2025AU/) 查看讲义。
+:::
 
 ## 课程内容
 
