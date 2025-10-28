@@ -12,7 +12,7 @@ export default defineUserConfig({
   description: "学好高工拿好分数",
 
   plugins: [
-    paragraphCommentPlugin({ tags: ['p', 'ul', 'ol', 'h1', 'h2'] })
+    paragraphCommentPlugin()
     // testPlugin({ 'msg': 'hehe, haha' }),
   ],
   theme,

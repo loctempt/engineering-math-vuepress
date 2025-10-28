@@ -1,7 +1,9 @@
 // .vuepress/plugins/paragraph-comment.ts
+import { App } from '@vuepress/core';
 import type { Plugin } from '@vuepress/core';
 import MarkdownIt from 'markdown-it';
-import { Token } from 'markdown-it/lib/token.mjs';
+import { StateCore } from 'markdown-it/index.js';
+import Token from 'markdown-it/lib/token.mjs';
 
 // 定义插件选项接口 (name 是必需的)
 interface ParagraphCommentPluginOptions {
@@ -15,15 +17,16 @@ const DEFAULT_OPTIONS: Required<ParagraphCommentPluginOptions> = {
 
 // 定义一个接口来扩展 Token，以便安全地添加自定义属性
 interface ExtendedToken extends Token {
-    meta?: Token['meta'] & {
+    meta: Token['meta'] & {
         commentId?: string;
     };
 }
 
 // 定义你想要处理的顶级标签
-const TOP_LEVEL_TAGS = ['p', 'ul', 'ol', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'table'];
+// const TOP_LEVEL_TAGS = ['p', 'ul', 'ol', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'table'];
+const TOP_LEVEL_TAGS = ['p', 'ul', 'ol', 'table'];
 
-const paragraphCommentPlugin = (options: ParagraphCommentPluginOptions = DEFAULT_OPTIONS) => {
+const paragraphCommentPlugin = (options: ParagraphCommentPluginOptions = DEFAULT_OPTIONS) => (app: App) => {
     const resolvedOptions = { ...DEFAULT_OPTIONS, ...options };
     const { name } = resolvedOptions;
 
@@ -34,7 +37,8 @@ const paragraphCommentPlugin = (options: ParagraphCommentPluginOptions = DEFAULT
     console.log('[ParagraphCommentPlugin] Resolved options (excluding name):', { tags: TOP_LEVEL_TAGS });
 
     const getPageId = (env: any): string => {
-        const pagePath = (env && env.page && env.page.path) ? env.page.path : 'unknown-page';
+        // console.log('[ DEBUG] Rendering file, env:', env); // 查看env内容
+        const pagePath = (env && env.filePathRelative) ? env.filePathRelative : 'unknown-page';
         return pagePath.replace(/\//g, '_').replace(/[^a-zA-Z0-9_-]/g, '_');
     };
 
@@ -54,7 +58,7 @@ const paragraphCommentPlugin = (options: ParagraphCommentPluginOptions = DEFAULT
             }
 
             // --- 1. 添加 core 规则来为顶级标签添加 comment-stub class 和 id ---
-            md.core.ruler.push('add_comment_stub_class', (state) => {
+            md.core.ruler.push('add_comment_stub_class', (state: StateCore) => {
                 const tokens = state.tokens;
                 const env = state.env; // 可用于获取页面信息
                 const pageId = getPageId(env);
@@ -77,9 +81,11 @@ const paragraphCommentPlugin = (options: ParagraphCommentPluginOptions = DEFAULT
                             tagToProcess = 'ul';
                         } else if (tokenType === 'ordered_list_open') {
                             tagToProcess = 'ol';
-                        } else if (tokenType === 'heading_open') {
-                            tagToProcess = token.tag; // e.g., 'h1', 'h2'
-                        } else if (tokenType === 'table_open') {
+                        } 
+                        // else if (tokenType === 'heading_open') {
+                        //     tagToProcess = token.tag; // e.g., 'h1', 'h2'
+                        // } 
+                        else if (tokenType === 'table_open') {
                             tagToProcess = 'table';
                         }
 
@@ -143,7 +149,7 @@ const paragraphCommentPlugin = (options: ParagraphCommentPluginOptions = DEFAULT
                 'paragraph_open', 'paragraph_close',
                 'bullet_list_open', 'bullet_list_close',
                 'ordered_list_open', 'ordered_list_close',
-                'heading_open', 'heading_close',
+                // 'heading_open', 'heading_close',
                 'table_open', 'table_close'
             ];
 
@@ -162,16 +168,22 @@ const paragraphCommentPlugin = (options: ParagraphCommentPluginOptions = DEFAULT
                                 ? originalRule(tokens, idx, options, env, self)
                                 : self.renderToken(tokens, idx, options);
                             // 确保渲染的 HTML open 标签也包含 comment-stub class
+                            // const originalHtmlWithClass = originalHtml.replace(
+                            //     /(<\w+\s*(?:[^>]*?\s+)?)/i, // 匹配标签开始
+                            //     (match) => {
+                            //         if (!/\bclass\s*=\s*["'][^"']*comment-stub/i.test(match)) {
+                            //             return match.replace(/(<\w+\s*)/, `$1`);
+                            //         }
+                            //         return match; // 如果已有 comment-stub，直接返回
+                            //     }
+                            // );
                             const originalHtmlWithClass = originalHtml.replace(
-                                /(<\w+\s*(?:[^>]*?\s+)?)/i, // 匹配标签开始
-                                (match) => {
-                                    if (!/\bclass\s*=\s*["'][^"']*comment-stub/i.test(match)) {
-                                        return match.replace(/(<\w+\s*)/, `$1`);
-                                    }
-                                    return match; // 如果已有 comment-stub，直接返回
-                                }
+                                // 1. 捕获整个标签开头；2. 负向前瞻确认没有 comment-stub
+                                /(<\w+\b(?![^>]*\bclass[^>]*comment-stub)[^>]*)/gi,
+                                '$1 class="comment-stub"'
                             );
                             return wrapperStartTemplate(commentId) + originalHtmlWithClass;
+                            // return originalHtmlWithClass;
                         } else { // _close
                             console.log(`[ParagraphCommentPlugin] Wrapping top-level close token ${token.type} with ID ${commentId} at index ${idx}`);
                             const originalHtml = originalRule
@@ -179,6 +191,7 @@ const paragraphCommentPlugin = (options: ParagraphCommentPluginOptions = DEFAULT
                                 : self.renderToken(tokens, idx, options);
                             // close 标签本身不带 class，直接返回原 HTML + 结束标签
                             return originalHtml + wrapperEndTemplate;
+                            // return originalHtml;
                         }
                     } else {
                         // 不是需要评论的标签，使用原始规则
