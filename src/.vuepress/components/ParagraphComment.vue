@@ -1,10 +1,9 @@
 <template>
     <div class="paragraph-comment">
         <ClientOnly>
-            <img src="/maodie.avif"></img>
-            <Giscus :repo="repo" :repo-id="repoId" :category="category" :category-id="categoryId" :mapping="'specific'"
-                :term="pageId" :strict="1" :reactions-enabled="1" :emit-metadata="0" :input-position="'top'"
-                :theme="theme" :lang="lang" :loading="lazy" />
+            <!-- <img src="/maodie.avif"></img> -->
+            <!-- <WalineComment :path="pageId"></WalineComment> -->
+            <Waline :serverURL="serverURL" :path="pageId" dark='html[data-theme="dark"]'></Waline>
         </ClientOnly>
     </div>
 </template>
@@ -13,33 +12,34 @@
 // 从主题配置中读取 Giscus 配置（假设你用的是 Giscus）
 // import vuepressTheme from '../theme'
 import { type ThemeData, useThemeLocaleData } from '@vuepress/plugin-theme-data/client'
-import { type GiscusOptions } from '@vuepress/plugin-comment'
-// import { useThe } from 'vuepress/client'
-type MyThemeLocal = ThemeData<{
-    plugins: {
-        comment: GiscusOptions
-    }
-}>
-const themeLocale = useThemeLocaleData<MyThemeLocal>()
+import { type WalineOptions } from '@vuepress/plugin-comment'
+import { Waline } from '@waline/client/component';
+import '@waline/client/style';
 
-
+const serverURL = 'https://my-waline-repo.vercel.app/'
 const props = defineProps({
     pageId: String, // 段落唯一 ID
 })
-
-// console.log("themeLocale", themeLocale);
-// const repo = themeLocale.value.plugins.comment?.repo
-// const repoId = themeLocale.value.plugins.comment?.repoId
-// const category = themeLocale.value.plugins.comment?.category
-// const categoryId = themeLocale.value.plugins.comment?.categoryId
-// const theme = 'light'
-// const lang = 'zh-CN'
-// const lazy = true
 
 </script>
 
 <style scoped>
 .paragraph-comment {
     margin-top: 1rem;
+}
+</style>
+
+<style>
+/* 浅色模式 */
+:root {
+  /* 让 Waline 的主色 = 主题当前色 */
+  --waline-theme-color: #0756ab !important;
+  --waline-active-color: #217ddf !important;
+}
+
+/* 深色模式（hope 用 html[data-theme="dark"]） */
+html[data-theme="dark"] {
+  --waline-theme-color: #0756ab !important;
+  --waline-active-color: #217ddf !important;
 }
 </style>

@@ -1,1 +1,6 @@
 // place your custom styles here
+/* 放过 Waline 评论区，其余正文外链继续保留图标 */
+.external-link-icon [vp-content] a[href*="://"]:not(.no-external-link-icon):not(.wl-content a)::after,
+.external-link-icon [vp-content] a[target="_blank"]:not(.no-external-link-icon):not(.wl-content a)::after {
+  content: none !important;
+}

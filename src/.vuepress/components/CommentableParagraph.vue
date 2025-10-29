@@ -5,7 +5,7 @@
         <button @click="showComment = !showComment" :class="'comment-toggle-btn-' + String(showComment)">
             <VPIcon :icon="showComment ? 'fa6-solid:comment-slash' : 'fa6-solid:comment'" />
         </button>
-        <div v-show="showComment" class="comment-container">
+        <div v-if="showComment" class="comment-container">
             <ParagraphComment :page-id="computedId" />
         </div>
     </div>

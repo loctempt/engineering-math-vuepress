@@ -125,6 +125,8 @@ export default hopeTheme({
       meta: ['nick', 'mail'],
       locales: {
         'zh-CN':
+          { placeholder: "评论将在经过核后显示" },
+        'en-US':
           { placeholder: "评论将在经过核后显示" }
       }
     },
