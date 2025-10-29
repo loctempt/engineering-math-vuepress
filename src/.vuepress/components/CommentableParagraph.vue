@@ -2,7 +2,7 @@
     <!-- 使用 div 模拟 p 的样式 -->
     <div class="commentable-paragraph-wrapper" :class="{ 'paragraph-wrapper': true }" :id="id">
         <slot />
-        <button @click="showComment = !showComment" :class="'comment-toggle-btn-' + String(showComment)">
+        <button type="button" @click="showComment = !showComment" :class="'comment-toggle-btn-' + String(showComment)">
             <VPIcon :icon="showComment ? 'fa6-solid:comment-slash' : 'fa6-solid:comment'" />
         </button>
         <div v-if="showComment" class="comment-container">
@@ -20,16 +20,7 @@ const props = defineProps({
 })
 const computedId = props.id || 'unknown-paragraph';
 const showComment = ref(false)
-const paragraphRef = ref(null)
-const paragraphId = ref('')
 
-// 生成唯一 ID：可基于内容哈希或使用索引（这里简化为内容截取）
-onMounted(() => {
-    const text = paragraphRef.value?.textContent || ''
-    // 简单哈希（生产环境建议用更稳定的哈希算法）
-    const hash = btoa(encodeURIComponent(text.substring(0, 50))).replace(/[^a-zA-Z0-9]/g, '')
-    paragraphId.value = `para-${hash}`
-})
 </script>
 
 <style>

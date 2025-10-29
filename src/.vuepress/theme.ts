@@ -121,7 +121,7 @@ export default hopeTheme({
       // category: "Announcements",
       // categoryId: "DIC_kwDOG_Pt2M4COD69",
       provider: 'Waline',
-      serverURL: 'https://my-waline-repo.vercel.app/',
+      serverURL: 'https://waline.fantastic-mathematics.work/',
       meta: ['nick', 'mail'],
       locales: {
         'zh-CN':

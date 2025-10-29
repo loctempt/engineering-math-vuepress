@@ -1,6 +1,6 @@
 // .vuepress/plugins/paragraph-comment.ts
 import { App } from '@vuepress/core';
-import type { Plugin } from '@vuepress/core';
+import { createHash } from 'crypto';
 import MarkdownIt from 'markdown-it';
 import { StateCore } from 'markdown-it/index.js';
 import Token from 'markdown-it/lib/token.mjs';
@@ -39,7 +39,9 @@ const paragraphCommentPlugin = (options: ParagraphCommentPluginOptions = DEFAULT
     const getPageId = (env: any): string => {
         // console.log('[ DEBUG] Rendering file, env:', env); // 查看env内容
         const pagePath = (env && env.filePathRelative) ? env.filePathRelative : 'unknown-page';
-        return pagePath.replace(/\//g, '_').replace(/[^a-zA-Z0-9_-]/g, '_');
+        const md5 = createHash('md5').update(pagePath).digest('hex').substring(0, 16);
+        // return pagePath.replace(/\//g, '_').replace(/[^a-zA-Z0-9_-]/g, '_');
+        return md5;
     };
 
     const pageCounters = new Map<string, number>();
@@ -81,7 +83,7 @@ const paragraphCommentPlugin = (options: ParagraphCommentPluginOptions = DEFAULT
                             tagToProcess = 'ul';
                         } else if (tokenType === 'ordered_list_open') {
                             tagToProcess = 'ol';
-                        } 
+                        }
                         // else if (tokenType === 'heading_open') {
                         //     tagToProcess = token.tag; // e.g., 'h1', 'h2'
                         // } 
