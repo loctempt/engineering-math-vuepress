@@ -7,3 +7,4 @@ export default defineClientConfig({
     app.component("CommentableParagraph", CommentableParagraph);
   },
 });
+

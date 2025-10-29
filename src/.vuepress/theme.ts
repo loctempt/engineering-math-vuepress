@@ -115,11 +115,18 @@ export default hopeTheme({
     // Note: This is for testing ONLY!
     // You MUST generate and use your own comment service in production.
     comment: {
-      provider: "Giscus",
-      repo: "vuepress-theme-hope/giscus-discussions",
-      repoId: "R_kgDOG_Pt2A",
-      category: "Announcements",
-      categoryId: "DIC_kwDOG_Pt2M4COD69",
+      // provider: "Giscus",
+      // repo: "vuepress-theme-hope/giscus-discussions",
+      // repoId: "R_kgDOG_Pt2A",
+      // category: "Announcements",
+      // categoryId: "DIC_kwDOG_Pt2M4COD69",
+      provider: 'Waline',
+      serverURL: 'https://my-waline-repo.vercel.app/',
+      meta: ['nick', 'mail'],
+      locales: {
+        'zh-CN':
+          { placeholder: "评论将在经过核后显示" }
+      }
     },
 
     components: {

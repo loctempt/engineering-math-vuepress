@@ -16,6 +16,7 @@
     "@vuepress/core": "2.0.0-rc.26",
     "@vuepress/plugin-comment": "2.0.0-rc.20",
     "@vuepress/plugin-theme-data": "2.0.0-rc.114",
+    "@waline/client": "^3.7.0",
     "katex": "^0.16.25",
     "markdown-it": "^14.1.0",
     "mathjax-full": "^3.2.2",
