@@ -26,6 +26,7 @@ nextTick(() => {
         el: walineRef.value,
         serverURL: serverURL,
         path: props.pageId,
+        meta: ['nick', 'mail'],
         dark: 'html[data-theme="dark"]'
         // …其他配置
     })
