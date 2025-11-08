@@ -9,16 +9,16 @@ Follow this section to set up your development environment.
 ### Basic development tools
 
 - git
-  - Download git from [git official website](https://git-scm.com/)
+  - Download git from [the official Git website](https://git-scm.com/)
 - Node
-  - Download node from [Node download page](https://nodejs.org/en/download) (find the green button reading "Windows Installer (.msi)")
+  - Download node from [Node download page](https://nodejs.org/en/download) (find the green button labeled "Windows Installer (.msi)")
 - pnpm
   - After installing Node, use `npm install -g pnpm@latest-10` to install pnpm
-  - Then use `pnpm config set registry https://registry.npmmirror.com` to make pnpm look for packages from a domestic mirror hosted by alibaba.
+  - Then use `pnpm config set registry https://registry.npmmirror.com` to configure pnpm to use packages from a domestic mirror hosted by alibaba.
 
 ### Get and run the code
 
-- Use `git clone git@github.com:loctempt/engineering-math-vuepress.git` to pull the repository;
+- Run `git clone git@github.com:loctempt/engineering-math-vuepress.git` to pull the repository;
 - Then cd to the project directory using `cd engineering-math-vuepress`;
 - Now run `pnpm i` to install dependencies;
 - Finally, execute `pnpm run docs:dev` to run a dev server on your local machine. The server process will print one or more urls on your terminal. You can use them to access your website.
