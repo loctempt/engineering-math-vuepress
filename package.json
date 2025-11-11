@@ -32,5 +32,8 @@
     "onlyBuiltDependencies": [
       "esbuild"
     ]
+  },
+  "dependencies": {
+    "axios": "^1.13.2"
   }
 }
