@@ -28,20 +28,23 @@ const props = defineProps({
   id: String, // 由 Markdown 插件传入，如 "p-0", "p-1"
 });
 onMounted(() => {
-  axios.get(`https://waline.fantastic-mathematics.work/api/comment?type=count&url=${computedId}`)
+  axios
+    .get(
+      `https://waline.fantastic-mathematics.work/api/comment?type=count&url=${computedId}`
+    )
     .then((resp) => {
       commentCount.value = resp.data.data[0];
     })
     .catch((err) => {
       console.log(err);
-    })
+    });
 });
 const computedId = props.id || "unknown-paragraph";
 const isCommentExpanded = ref(false);
 const isCommentButtonVisible = computed(() => {
-  console.log(computedId, isCommentExpanded.value || commentCount.value > 0)
-  return isCommentExpanded.value || commentCount.value > 0
-})
+  console.log(computedId, isCommentExpanded.value || commentCount.value > 0);
+  return isCommentExpanded.value || commentCount.value > 0;
+});
 </script>
 
 <style>
@@ -84,5 +87,26 @@ const isCommentButtonVisible = computed(() => {
   margin-top: 0.8rem;
   padding-top: 0.8em;
   border-top: 1px dotted var(--vp-c-divider);
+}
+
+/* 宽屏（≥1200px）时，启用右侧浮动 */
+@media (min-width: 1500px) {
+  .commentable-paragraph-wrapper {
+    /* 为右侧评论留出空间（通过 padding-right） */
+    padding-right: 340px; /* 320px 评论 + 20px 间距 */
+  }
+
+  .comment-container {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 320px;
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+    padding-left: 20px;
+    /* 与 VuePress 主题风格一致 */
+    font-size: 0.9rem;
+  }
 }
 </style>
