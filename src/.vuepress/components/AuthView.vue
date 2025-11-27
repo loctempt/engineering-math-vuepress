@@ -1,23 +1,25 @@
 <template>
     <div class="auth-view">
-        <!-- avatar view -->
-        <div v-if="isLoggedIn" class="auth-view-avatar">
-            <NaiveUIConfigProvider>
-                <n-dropdown trigger="hover" :options="avatarDropdownOptions" @select="handleSelect">
-                    <n-avatar round size="medium" :src="userStore.user?.value.avatar"
-                        fallback-src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg" />
-                </n-dropdown>
-            </NaiveUIConfigProvider>
-        </div>
-        <!-- login view -->
-        <div v-else>
-            <NaiveUIConfigProvider>
-                <n-button quaternary round @click="handleLogin">
-                    登录
-                </n-button>
-            </NaiveUIConfigProvider>
-        </div>
-        <!-- <i-fa6-solid-right-from-bracket /> -->
+        <ClientOnly>
+            <!-- avatar view -->
+            <div v-if="isLoggedIn" class="auth-view-avatar">
+                <NaiveUIConfigProvider>
+                    <n-dropdown trigger="hover" :options="avatarDropdownOptions" @select="handleSelect">
+                        <n-avatar round size="medium" :src="userStore.user?.value.avatar"
+                            fallback-src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg" />
+                    </n-dropdown>
+                </NaiveUIConfigProvider>
+            </div>
+            <!-- login view -->
+            <div v-else>
+                <NaiveUIConfigProvider>
+                    <n-button quaternary round @click="handleLogin">
+                        登录
+                    </n-button>
+                </NaiveUIConfigProvider>
+            </div>
+            <!-- <i-fa6-solid-right-from-bracket /> -->
+        </ClientOnly>
     </div>
 </template>
 
@@ -75,6 +77,7 @@ const handleLogin = async () => {
 .auth-view {
     padding-right: 5px;
 }
+
 .n-config-provider {
     display: flex;
     justify-content: center;
