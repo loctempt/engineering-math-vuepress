@@ -8,9 +8,12 @@ import AuthTest from "./deprecated/AuthTest.vue";
 import AuthView from './components/AuthView.vue';
 import NaiveUIProvider from "./components/NaiveUIConfigProvider.vue";
 import { setupNaiveReactiveTheme } from "./composables/useNaiveReactiveTheme.ts";
+import naive from 'naive-ui'
 
 export default defineClientConfig({
   enhance: ({ app }) => {
+    app.use(naive)
+
     setupNaiveReactiveTheme();
 
     app.component("CommentableParagraph", CommentableParagraph);
