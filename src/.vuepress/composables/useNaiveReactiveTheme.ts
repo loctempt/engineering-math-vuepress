@@ -1,6 +1,8 @@
 import { watchEffect, ref } from 'vue'
-import { darkTheme } from 'naive-ui'
+// import { darkTheme } from 'naive-ui'
+import naive_ui from 'naive-ui'
 
+const { darkTheme } = naive_ui;
 export const naiveThemeRef = ref<any>(null)
 
 export function setupNaiveReactiveTheme() {
