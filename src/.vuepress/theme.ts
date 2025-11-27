@@ -18,7 +18,11 @@ export default hopeTheme({
   docsDir: "src",
 
   // navbar
-  navbar,
+  // navbar: [],
+  navbarLayout:{
+    start:['Brand'],
+    end: ['AuthView', 'Outlook']
+  },
 
   // sidebar
   sidebar,
@@ -112,17 +116,11 @@ export default hopeTheme({
   },
 
   plugins: {
-    // Note: This is for testing ONLY!
-    // You MUST generate and use your own comment service in production.
     comment: {
-      // provider: "Giscus",
-      // repo: "vuepress-theme-hope/giscus-discussions",
-      // repoId: "R_kgDOG_Pt2A",
-      // category: "Announcements",
-      // categoryId: "DIC_kwDOG_Pt2M4COD69",
       provider: 'Waline',
       serverURL: 'https://waline.fantastic-mathematics.work/',
       meta: ['nick', 'mail'],
+      login: 'disable',
       locales: {
         'zh-CN':
           { placeholder: "评论将在经过核后显示" },
