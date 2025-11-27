@@ -1,7 +1,9 @@
 <template>
-    <n-config-provider :theme="naiveTheme">
-        <slot />
-    </n-config-provider>
+    <ClientOnly>
+        <n-config-provider :theme="naiveTheme">
+            <slot />
+        </n-config-provider>
+    </ClientOnly>
 </template>
 
 <script setup>
