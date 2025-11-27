@@ -107,6 +107,7 @@ const isCommentButtonVisible = computed(() => {
     padding-left: 20px;
     /* 与 VuePress 主题风格一致 */
     font-size: 0.9rem;
+    z-index: 170;
   }
 }
 </style>

@@ -102,4 +102,14 @@ html[data-theme="dark"] {
     --waline-theme-color: #0756ab !important;
     --waline-active-color: #217ddf !important;
 }
+
+.paragraph-comment {
+  background-color: rgb(251, 251, 251);
+  border-radius: 0.5em;
+}
+
+html[data-theme="dark"] .paragraph-comment{
+  background-color: #242429;
+
+}
 </style>
