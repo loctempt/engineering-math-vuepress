@@ -24,6 +24,12 @@ export default defineUserConfig({
   // shouldPrefetch: false,
   bundler: viteBundler({
     viteOptions: {
+      ssr: {
+        noExternal: ['naive-ui']
+      },
+      optimizeDeps: {
+        include: ['naive-ui']
+      },
       plugins: [
         Components({
           resolvers: [

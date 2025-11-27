@@ -1,9 +1,9 @@
 <template>
-    <div class="paragraph-comment">
-        <ClientOnly>
-            <div v-if="showWaline" ref="walineRef" :pageId="pageId"></div>
-        </ClientOnly>
-    </div>
+  <div class="paragraph-comment">
+    <ClientOnly>
+      <div v-if="showWaline" ref="walineRef" :pageId="pageId"></div>
+    </ClientOnly>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -14,7 +14,7 @@ import { useUserStore } from '../stores/user';
 
 const serverURL = 'https://waline.fantastic-mathematics.work/'
 const props = defineProps({
-    pageId: String, // 段落唯一 ID
+  pageId: String, // 段落唯一 ID
 })
 
 const userStore = useUserStore()
@@ -66,46 +66,70 @@ const initWaline = () => {
   console.log(`[EnhancedParagraphComment] Initialized Waline for ${props.pageId} with auth: ${userStore.isLoggedIn.value ? 'authenticated' : 'not authenticated'}`)
 }
 
-/* 3. 挂载后初始化 */
+// Watch for authentication state changes and reinitialize Waline
+watch(
+  () => userStore.isLoggedIn,
+  (newAuthState) => {
+    console.log(`[EnhancedParagraphComment] Authentication state changed to: ${newAuthState}`)
+    if (walineRef.value) {
+      // Reinitialize Waline when authentication state changes
+      nextTick(() => {
+        initWaline()
+      })
+    }
+  }
+)
+
+// Watch for token changes and reinitialize
+watch(
+  () => userStore.token,
+  (newToken) => {
+    if (newToken && walineRef.value) {
+      console.log(`[EnhancedParagraphComment] Token updated, reinitializing Waline`)
+      nextTick(() => {
+        initWaline()
+      })
+    }
+  }
+)
+
+/* Initialize on mount */
 nextTick(() => {
-    initWaline();
+  initWaline()
 })
 
-/* 4. 组件销毁前：先判空再 destroy，防止 removeChild 报错 */
-/* 路由切换 = 组件卸载 */
+/* Cleanup on unmount */
 onBeforeUnmount(() => {
-    // ② 先让 Waline 与 DOM 脱钩
-    if (walineInstance) {
-        walineInstance = null
-    }
-    // ③ 再让 Vue 把容器干掉（此时不再执行任何 removeChild）
-    showWaline.value = false
+  if (walineInstance) {
+    walineInstance = null
+  }
+  showWaline.value = false
 })
 </script>
 
 <style scoped>
 .paragraph-comment {
-    margin-top: 1rem;
+  margin-top: 1rem;
 }
 </style>
 
 <style>
 /* 浅色模式 */
 :root {
-    /* 让 Waline 的主色 = 主题当前色 */
-    --waline-theme-color: #0756ab !important;
-    --waline-active-color: #217ddf !important;
+  /* 让 Waline 的主色 = 主题当前色 */
+  --waline-theme-color: #0756ab !important;
+  --waline-active-color: #217ddf !important;
 }
 
 /* 深色模式（hope 用 html[data-theme="dark"]） */
 html[data-theme="dark"] {
-    --waline-theme-color: #0756ab !important;
-    --waline-active-color: #217ddf !important;
+  --waline-theme-color: #0756ab !important;
+  --waline-active-color: #217ddf !important;
 }
 
 .paragraph-comment {
   background-color: rgb(251, 251, 251);
-  border-radius: 0.5em;
+  border-radius: 2px;
 }
 
 html[data-theme="dark"] .paragraph-comment{

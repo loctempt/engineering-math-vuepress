@@ -36,7 +36,7 @@ We recomand you use Visual Studio Code as your editor. The following settings ar
 - Git commit
   - Install `redjue.git-commit-plugin` plugin, which will enforce the [Angular Team Commit Specification](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines) for you when you edit a commit message.
 - Code format
-  - Install `Wscats.vue` plugin and let it handle code formatting for you.
+  - Install `Vue.volar` plugin and let it handle code formatting for you.
 - Naming convention
   - Use pascal case for filename and identifiers (e.g., `FunctionOne.vue`, `const showButton;`)
 
