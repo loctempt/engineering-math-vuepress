@@ -35,7 +35,7 @@ const userState = ref<UserState>({
 })
 
 // Initialize state from localStorage
-const initializeFromStorage = () => {
+export const initializeFromStorage = () => {
   const storedUser = localStorage.getItem(STORAGE_KEYS.USER)
   const storedToken = localStorage.getItem(STORAGE_KEYS.TOKEN)
 
@@ -101,11 +101,6 @@ export const useUserStore = () => {
       userState.value.user = { ...userState.value.user, ...userInfo }
       localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(userState.value.user))
     }
-  }
-
-  // Initialize on first use
-  if (!userState.value.user && !userState.value.token) {
-    initializeFromStorage()
   }
 
   return {

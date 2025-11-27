@@ -1,8 +1,6 @@
 import { watchEffect, ref } from 'vue'
-// import { darkTheme } from 'naive-ui'
-import naive_ui from 'naive-ui'
+import { darkTheme } from 'naive-ui'
 
-const { darkTheme } = naive_ui;
 export const naiveThemeRef = ref<any>(null)
 
 export function setupNaiveReactiveTheme() {
@@ -10,6 +8,7 @@ export function setupNaiveReactiveTheme() {
 
   const updateTheme = () => {
     const isDark = html.getAttribute('data-theme') === 'dark'
+    console.log("[setupNaiveReactiveTheme] is dark: ",isDark)
     naiveThemeRef.value = isDark ? darkTheme : null
   }
 

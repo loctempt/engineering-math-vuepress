@@ -24,8 +24,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, h } from 'vue';
-import { useUserStore } from '../stores/user'
+import { h, onMounted, watch } from 'vue';
+import { useUserStore, initializeFromStorage } from '../stores/user'
+import { setupNaiveReactiveTheme, naiveThemeRef } from "../composables/useNaiveReactiveTheme"
 import authService from '../services/auth'
 import { NButton, NAvatar, NDropdown } from 'naive-ui'
 import { Icon } from '@iconify/vue';
@@ -70,6 +71,13 @@ const handleLogin = async () => {
         console.error('Login failed:', error)
     }
 }
+
+watch(() => naiveThemeRef, (newValue) => { console.log(newValue) })
+
+onMounted(() => {
+    initializeFromStorage();
+    setupNaiveReactiveTheme();
+})
 
 </script>
 

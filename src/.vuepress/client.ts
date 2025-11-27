@@ -14,8 +14,6 @@ export default defineClientConfig({
   enhance: ({ app }) => {
     app.use(naive)
 
-    setupNaiveReactiveTheme();
-
     app.component("CommentableParagraph", CommentableParagraph);
     app.component("EnhancedCommentableParagraph", EnhancedCommentableParagraph);
     app.component("EnhancedParagraphComment", EnhancedParagraphComment);
