@@ -27,6 +27,7 @@ const walineConfig = computed(() => {
   const baseConfig = {
     serverURL: serverURL,
     path: props.pageId,
+    lang: "zh-CN",
     dark: 'html[data-theme="dark"]',
   }
 
@@ -44,7 +45,7 @@ const walineConfig = computed(() => {
   return {
     ...baseConfig,
     login: 'disable' as const, // Show login fields
-    meta: ['nick', 'mail'] as WalineMeta[]// Show nickname and email fields
+    meta: [] as WalineMeta[]// Show nickname and email fields
   }
 })
 
