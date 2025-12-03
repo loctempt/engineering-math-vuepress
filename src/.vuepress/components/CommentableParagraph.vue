@@ -63,6 +63,7 @@ const isCommentButtonVisible = computed(() => {
   background: none;
   border: none;
   cursor: pointer;
+  opacity: 70%;
 }
 
 .comment-toggle-btn-false {
@@ -80,7 +81,7 @@ const isCommentButtonVisible = computed(() => {
 }
 
 .commentable-paragraph-wrapper:hover .comment-toggle-btn-false {
-  opacity: 1;
+  opacity: 70%;
 }
 
 .comment-container {
@@ -93,7 +94,7 @@ const isCommentButtonVisible = computed(() => {
 @media (min-width: 1500px) {
   .commentable-paragraph-wrapper {
     /* 为右侧评论留出空间（通过 padding-right） */
-    padding-right: 340px; /* 320px 评论 + 20px 间距 */
+    /* padding-right: 340px; 320px 评论 + 20px 间距 */
   }
 
   .comment-container {
