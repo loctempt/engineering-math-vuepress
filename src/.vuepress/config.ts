@@ -1,6 +1,5 @@
 import { defineUserConfig } from "vuepress";
 import paragraphCommentPlugin from './plugins/paragraph-comment.ts'
-import testPlugin from "./plugins/test-plugin.ts";
 import { viteBundler } from '@vuepress/bundler-vite'
 import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
