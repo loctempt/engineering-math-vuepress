@@ -19,8 +19,8 @@ export default hopeTheme({
 
   // navbar
   // navbar: [],
-  navbarLayout:{
-    start:['Brand'],
+  navbarLayout: {
+    start: ['Brand'],
     end: ['AuthView', 'Outlook']
   },
 
@@ -119,7 +119,8 @@ export default hopeTheme({
     comment: {
       provider: 'Waline',
       serverURL: 'https://waline.fantastic-mathematics.work/',
-      meta: ['nick', 'mail'],
+      meta: [],
+      lang: "zh-CN",
       login: 'disable',
       locales: {
         'zh-CN':
